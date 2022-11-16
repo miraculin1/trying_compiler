@@ -42,7 +42,6 @@ enum yytokentype {
   Y_SEMICOLON = 292,
 
   Y_FLOAT = 293,
-  EOL = 294,
 };
 
 typedef union _YYLVAL {

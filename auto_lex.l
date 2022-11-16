@@ -86,7 +86,7 @@
 [_a-zA-Z][0-9a-zA-Z]* { yylval.id_name = yytext;
                        return Y_ID; }
 [ \t] { /* white space */ }
-\n { return EOL; }
+\n {  }
 %%
 
 // user func

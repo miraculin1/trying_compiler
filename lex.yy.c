@@ -1013,7 +1013,7 @@ case 39:
 /* rule 39 can match eol */
 YY_RULE_SETUP
 #line 89 "auto_lex.l"
-{ return EOL; }
+{  }
 	YY_BREAK
 case 40:
 YY_RULE_SETUP

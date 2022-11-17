@@ -24,7 +24,6 @@ static void advance() { tok = yylex(); }
 void error() { /* printf("error"); */
 }
 
-// TODO this module not effective
 static void fallBack(FILE *IN, long tar) {
   // from begin;
   fseek(IN, tar, SEEK_SET);
@@ -33,7 +32,286 @@ static void fallBack(FILE *IN, long tar) {
   advance();
 }
 
-// TODO change fallback logic
+int BlockItem() {
+  long scanTmp = checkPoint();
+  /* if (Decl()) { */
+    /* fallBack(IN, scanTmp); */
+  /* } else { */
+    /* return 0; */
+  /* } */
+
+  if (Stmt()) {
+    error();
+    return 1;
+  }
+
+  return 0;
+}
+
+int BlockItems() {
+  if (BlockItem()) {
+    error();
+    return 1;
+  }
+
+  long scanTmp = checkPoint();
+  if (BlockItems()) {
+    fallBack(IN, scanTmp);
+    return 0;
+  }
+  return 0;
+}
+
+int Block() {
+  if (tok != Y_LBRACKET) {
+    error();
+    return 1;
+  }
+  advance();
+
+  long scanTmp = checkPoint();
+  if (BlockItems()) {
+    fallBack(IN, scanTmp);
+  }
+  if (tok != Y_RBRACKET) {
+    error();
+    return 1;
+  }
+  advance();
+
+  return 0;
+}
+
+int Stmt() {
+  long scanTmp = checkPoint();
+  if (LVal()) {
+    fallBack(IN, scanTmp);
+  } else {
+    if (tok != Y_ASSIGN) {
+      fallBack(IN, scanTmp);
+    }
+    advance();
+
+    if (Exp()) {
+      error();
+      return 1;
+    }
+
+    if (tok != Y_SEMICOLON) {
+      error();
+      return 1;
+    }
+    advance();
+    return 0;
+  }
+
+  if (Exp()) {
+    fallBack(IN, scanTmp);
+  } else {
+    if (tok != Y_SEMICOLON) {
+      error();
+      return 1;
+    }
+    advance();
+    return 0;
+  }
+
+  if (tok != Y_SEMICOLON) {
+    fallBack(IN, scanTmp);
+  } else {
+    advance();
+    return 0;
+  }
+
+  if (Block()) {
+    fallBack(IN, scanTmp);
+  } else {
+    return 0;
+  }
+
+  if (tok != Y_WHILE) {
+    fallBack(IN, scanTmp);
+  } else {
+    advance();
+    if (tok != Y_LPAR) {
+      error();
+      return 1;
+    }
+    advance();
+
+    if (LOrExp()) {
+      error();
+      return 1;
+    }
+
+    if (tok != Y_RPAR) {
+      error();
+      return 1;
+    }
+    advance();
+
+    if (Stmt()) {
+      error();
+      return 1;
+    }
+
+    return 0;
+  }
+
+  if (tok != Y_IF) {
+    fallBack(IN, scanTmp);
+  } else {
+    advance();
+    if (tok != Y_LPAR) {
+      error();
+      return 1;
+    }
+    advance();
+
+    if (LOrExp()) {
+      error();
+      return 1;
+    }
+
+    if (tok != Y_RPAR) {
+      error();
+      return 1;
+    }
+    advance();
+
+    if (Stmt()) {
+      error();
+      return 1;
+    }
+
+    long scanTmp1 = checkPoint();
+    if (tok != Y_ELSE) {
+      fallBack(IN, scanTmp1);
+    } else {
+      advance();
+      if (Stmt()) {
+        error();
+        return 1;
+      }
+    }
+
+    return 0;
+  }
+
+  if (tok != Y_RETURN) {
+    fallBack(IN, scanTmp);
+  } else {
+    advance();
+    long scanTmp2 = checkPoint();
+    if (Exp()) {
+      fallBack(IN, scanTmp2);
+    }
+    if (tok != Y_SEMICOLON) {
+      error();
+      return 1;
+    }
+
+    return 0;
+  }
+
+  if (!(tok == Y_BREAK || tok == Y_CONTINUE )) {
+    error();
+    return 1;
+  } else {
+    advance();
+    if (tok != Y_SEMICOLON) {
+      error();
+      return 1;
+    }
+    advance();
+    return 0;
+  }
+}
+
+int RelExp() {
+  if (AddExp()) {
+    error();
+    return 1;
+  }
+
+  long scanTmp = checkPoint();
+  if (!(tok == Y_LESS || tok == Y_GREAT || tok == Y_LESSEQ ||
+        tok == Y_GREATEQ)) {
+    fallBack(IN, scanTmp);
+    return 0;
+  }
+  advance();
+
+  if (RelExp()) {
+    error();
+    return 1;
+  }
+
+  return 0;
+}
+
+int EqExp() {
+  if (RelExp()) {
+    error();
+    return 1;
+  }
+
+  long scanTmp = checkPoint();
+  if (!(tok == Y_EQ || tok == Y_NOTEQ)) {
+    fallBack(IN, scanTmp);
+    return 0;
+  }
+  advance();
+
+  if (EqExp()) {
+    error();
+    return 1;
+  }
+
+  return 0;
+}
+
+int LAndExp() {
+  if (EqExp()) {
+    error();
+    return 1;
+  }
+
+  long scanTmp = checkPoint();
+  if (tok != Y_AND) {
+    fallBack(IN, scanTmp);
+    return 0;
+  }
+  advance();
+
+  if (LAndExp()) {
+    error();
+    return 1;
+  }
+
+  return 0;
+}
+
+int LOrExp() {
+  if (LAndExp()) {
+    error();
+    return 1;
+  }
+
+  long scanTmp = checkPoint();
+  if (tok != Y_AND) {
+    fallBack(IN, scanTmp);
+    return 0;
+  }
+  advance();
+
+  if (LAndExp()) {
+    error();
+    return 1;
+  }
+
+  return 0;
+}
 
 int CallParams() {
   if (Exp()) {
@@ -269,7 +547,7 @@ int main() {
   IN = fopen("./dataIn.txt", "r");
   yyset_in(IN);
   advance();
-  int res = UnaryExp();
+  int res = Stmt();
 
   if (res) {
     printf("ERROR");

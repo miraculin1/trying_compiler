@@ -1,1 +1,7 @@
-+fuxk(data, i, 21 +1)
+{
+data[1] = 1;
+func1(2);
+while (1) {
+return a;
+}
+}

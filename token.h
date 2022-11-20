@@ -9,7 +9,8 @@ enum yytokentype {
 
   Y_INT = 261,
   Y_VOID = 262,
-  Y_CONST = 263, Y_IF = 264,
+  Y_CONST = 263,
+  Y_IF = 264,
   Y_ELSE = 265,
   Y_WHILE = 266,
   Y_BREAK = 267,

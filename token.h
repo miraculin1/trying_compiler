@@ -1,5 +1,5 @@
-#ifndef COMPILER_LAB_TOKEN_H
-#define COMPILER_LAB_TOKEN_H
+#ifndef _TOKEN_H
+#define _TOKEN_H
 
 enum yytokentype {
   num_INT = 258,
@@ -54,4 +54,4 @@ typedef union _YYLVAL {
 
 extern _YYLVAL yylval;
 extern long scaned;
-#endif // COMPILER_LAB_TOKEN_H
+#endif // _TOKEN_H

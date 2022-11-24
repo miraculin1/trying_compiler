@@ -1,7 +1,6 @@
-{
-data[1] = 1;
-func1(2);
-while (1) {
-return a;
-}
+if (a == b) {
+print(a);
+a = a +1;
+} else {
+return b;
 }

@@ -5,29 +5,25 @@
  * not only for this but for the bison (lab3)
  */
 
-bool isIDNode(pAst now) {
-  return (now->nType == DECL_REF_EXPR || now->nType == UNARY_OPERATOR ||
-          now->nType == PAREN_EXPR);
-}
-void displayAst(pAst now) {
-  printf("nodeType: %d, ", now->nType);
-  printf("{int%d|", now->val.int_value);
-  printf("float%f|", now->val.float_value);
-  printf("token%d|", now->val.token);
-  if (isIDNode(now)) {
-    printf("ID%s|", now->val.id_name);
-  }
-  printf("}\n");
-  if (now->lnode) {
-    displayAst(now->lnode);
-  }
-  if (now->rnode) {
-    displayAst(now->rnode);
-  }
-  if (now->next) {
-    displayAst(now->next);
-  }
-}
+/* void displayAst(pAst now) { */
+  /* printf("nodeType: %d, ", now->nodeType); */
+  /* printf("{int%d|", now->val.int_value); */
+  /* printf("float%f|", now->val.float_value); */
+  /* printf("token%d|", now->val.token); */
+  /* if (isIDNode(now)) { */
+    /* printf("ID%s|", now->val.id_name); */
+  /* } */
+  /* printf("}\n"); */
+  /* if (now->left) { */
+    /* displayAst(now->left); */
+  /* } */
+  /* if (now->right) { */
+    /* displayAst(now->right); */
+  /* } */
+  /* if (now->next) { */
+    /* displayAst(now->next); */
+  /* } */
+/* } */
 
 pAst newNode() {
   pAst tmp = malloc(sizeof(ast));
@@ -45,14 +41,14 @@ void clean(pAst now) {
   if (now->next) {
     clean(now->next);
   }
-  if (now->lnode) {
-    clean(now->lnode);
+  if (now->left) {
+    clean(now->left);
   }
-  if (now->rnode) {
-    clean(now->rnode);
+  if (now->right) {
+    clean(now->right);
   }
-  if (isIDNode(now)) {
-    free(now->val.id_name);
+  if (now->svalue) {
+    free(now->svalue);
   }
   free(now);
 }
@@ -60,13 +56,13 @@ void clean(pAst now) {
 // 我本来想要直接算出来这个节点的值，相当于直接常数
 // 传递咧，没必要。
 // 看作表达式处理就可以了。
-pAst BinaryNode(pAst l, pAst r, enum yytokentype op) {
+pAst BinaryNode(pAst l, pAst r, char* op) {
   pAst res = newNode();
-  res->nType = BINARY_OPERATOR;
+  res->nodeType = BINARY_OPERATOR;
 
-  res->val.token = op;
-  res->lnode = l;
-  res->rnode = r;
+  res->svalue = op;
+  res->left = l;
+  res->right = r;
 
   return res;
 }
@@ -75,47 +71,47 @@ pAst UnaryNode(pAst pram, char *name) {
   pAst res;
   // func call
   res = newNode();
-  res->nType = UNARY_OPERATOR;
+  res->nodeType = UNARY_OPERATOR;
 
-  res->lnode = pram;
-  res->val.id_name = name;
+  res->left = pram;
+  res->svalue = name;
 
   return res;
 }
 
 pAst LValNode(char *ID, pAst Array) {
   pAst res = newNode();
-  res->nType = DECL_REF_EXPR;
+  res->nodeType = DECL_REF_EXPR;
 
-  res->val.id_name = ID;
-  res->lnode = Array;
+  res->svalue = ID;
+  res->left = Array;
 
   return res;
 }
 
 pAst IntNode(int val) {
   pAst res = newNode();
-  res->nType = INTEGER_LITERAL;
+  res->nodeType = INTEGER_LITERAL;
 
-  res->val.int_value = val;
+  res->ivalue = val;
 
   return res;
 }
 
 pAst FloatNode(float val) {
   pAst res = newNode();
-  res->nType = FLOATING_LITERAL;
+  res->nodeType = FLOATING_LITERAL;
 
-  res->val.float_value = val;
+  res->fvalue = val;
 
   return res;
 }
 
 pAst ArraySubscriptsNode(pAst exp, pAst Array) {
   pAst res = newNode();
-  res->nType = ARRAY_SUBSCRIPT_EXPR;
+  res->nodeType = ARRAY_SUBSCRIPT_EXPR;
 
-  res->lnode = exp;
+  res->left = exp;
   res->next = Array;
 
   return res;
@@ -123,9 +119,11 @@ pAst ArraySubscriptsNode(pAst exp, pAst Array) {
 
 pAst ParamNode(pAst exp, pAst param) {
   pAst res = newNode();
-  res->nType = PAREN_EXPR;
+  res->nodeType = PAREN_EXPR;
 
-  res->val = exp->val;
+  res->ivalue = exp->ivalue;
+  res->fvalue = exp->fvalue;
+  res->svalue = exp->svalue;
   res->next = param;
 
   return res;
@@ -133,20 +131,20 @@ pAst ParamNode(pAst exp, pAst param) {
 
 pAst WhileNode(pAst cond, pAst stmt) {
   pAst res = newNode();
-  res->nType = WHILE_STMT;
+  res->nodeType = WHILE_STMT;
 
-  res->lnode = cond;
-  res->rnode = stmt;
+  res->left = cond;
+  res->right = stmt;
 
   return res;
 }
 
 pAst IfNode(pAst cond, pAst stmt, pAst ElseStmt) {
   pAst res = newNode();
-  res->nType = IF_STMT;
+  res->nodeType = IF_STMT;
 
-  res->lnode = cond;
-  res->rnode = stmt;
+  res->if_cond = cond;
+  res->right = stmt;
 
   // TODO trying to put else to next
   // we alway get a elsestmt but if no else then thats
@@ -162,30 +160,30 @@ pAst IfNode(pAst cond, pAst stmt, pAst ElseStmt) {
 
 pAst RetNode(pAst stmt) {
   pAst res = newNode();
-  res->nType = RETURN_STMT;
+  res->nodeType = RETURN_STMT;
 
-  res->lnode = stmt;
+  res->left = stmt;
 
   return res;
 }
 
 pAst BrkNode() {
   pAst res = newNode();
-  res->nType = BREAK_STMT;
+  res->nodeType = BREAK_STMT;
 
   return res;
 }
 
 pAst CountinueNode() {
   pAst res = newNode();
-  res->nType = CONTINUE_STMT;
+  res->nodeType = CONTINUE_STMT;
 
   return res;
 }
 
 pAst BlockNode(pAst exps) {
   pAst res = newNode();
-  res->nType = BLOCK_EXPR;
+  res->nodeType = BLOCK_EXPR;
 
   res->next = exps;
 

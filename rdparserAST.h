@@ -2,6 +2,8 @@
 #define __RDPARSER_H
 
 #include "ast.h"
+#include "lex.h"
+#include "token.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -24,5 +26,5 @@ pAst UnaryExp();
 pAst MulExp();
 pAst AddExp();
 pAst ConstExp();
-pAst Type();
+enum yytokentype Type();
 #endif

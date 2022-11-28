@@ -42,6 +42,7 @@
   long scaned = 0;
   #define YY_USER_ACTION scaned += yyleng;
 %}
+%x C_COMMENT
 
 
 %%
@@ -79,14 +80,31 @@
 "," { return Y_COMMA; }
 ";" { return Y_SEMICOLON; }
 \/\/.*\n { /* coment */ }
-[-]*[0-9]+ { yylval.int_value = atoi(yytext);
+0x[0-9a-fA-F]* { yylval.int_value = strtol(yytext, NULL, 16);
              return num_INT; }
-[-]*[0-9]+[.][0-9]+ { yylval.float_value = atof(yytext);
+[0-9]+ { yylval.int_value = atoi(yytext);
+             return num_INT; }
+[0-9]+\.[0-9]* { yylval.float_value = atof(yytext);
                       return num_FLOAT; }
-[_a-zA-Z][0-9a-zA-Z]* { yylval.id_name = yytext;
+[0-9]*\.[0-9]+ { yylval.float_value = atof(yytext);
+                      return num_FLOAT; }
+[0-9]+[eE][-+]*[0-9]+ { yylval.float_value = strtod(yytext, NULL);
+                      return num_FLOAT; }
+[0-9]*\.[0-9]+[eE][-+]*[0-9]+ { yylval.float_value = strtod(yytext, NULL);
+                      return num_FLOAT; }
+0x[0-9]*\.[0-9a-fA-F]+[pP][+-]*[0-9]* { yylval.float_value = strtod(yytext, NULL);
+                      return num_FLOAT; }
+[_a-zA-Z][0-9a-zA-Z_]* { yylval.id_name = yytext;
                        return Y_ID; }
 [ \t] { /* white space */ }
 \n {  }
+\r\n {  }
+
+
+"/*"            { BEGIN(C_COMMENT); }
+<C_COMMENT>"*/" { BEGIN(INITIAL); }
+<C_COMMENT>\n   { }
+<C_COMMENT>.    { }
 %%
 
 // user func

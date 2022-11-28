@@ -211,6 +211,7 @@ extern char *yytext;
 
 #ifdef YY_HEADER_EXPORT_START_CONDITIONS
 #define INITIAL 0
+#define C_COMMENT 1
 
 #endif
 
@@ -464,9 +465,9 @@ extern int yylex (void);
 #undef yyTABLES_NAME
 #endif
 
-#line 90 "auto_lex.l"
+#line 108 "auto_lex.l"
 
 
-#line 470 "lex.h"
+#line 471 "lex.h"
 #undef yyIN_HEADER
 #endif /* yyHEADER_H */

@@ -1,10 +1,5 @@
 #include "rdparserAST.h"
-#include "ast.h"
-#include "lex.h"
 #include "token.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
 /* we define return 1 as problem
  * explicit "return;"
@@ -15,6 +10,18 @@ FILE *IN;
 
 static long checkPoint() { return scaned - yyleng; }
 static void advance() { tok = yylex(); }
+
+static char *getIDCopy(_YYLVAL now) {
+  char *tmp = malloc(sizeof(char) * strlen(yylval.id_name) + 1);
+  strcpy(tmp, yylval.id_name);
+  return tmp;
+}
+
+static char *getOpCopy() {
+  char *tmp = malloc(sizeof(char) * strlen(yylval.id_name) + 1);
+  strcpy(tmp, yytext);
+  return tmp;
+}
 
 void error() { /* printf("error"); */
 }
@@ -28,11 +35,12 @@ static void fallBack(FILE *IN, long tar) {
 }
 
 pAst BlockItem() {
+  /* // still in old form */
   /* long scanTmp = checkPoint(); */
   /* if (Decl()) { */
-    /* fallBack(IN, scanTmp); */
+  /* fallBack(IN, scanTmp); */
   /* } else { */
-    /* return 0; */
+  /* return 0; */
   /* } */
 
   pAst tmp0;
@@ -89,25 +97,25 @@ pAst Stmt() {
   if (!(tmp0 = LVal())) {
     fallBack(IN, scanTmp);
   } else {
-    enum yytokentype op;
     if (tok != Y_ASSIGN) {
       fallBack(IN, scanTmp);
-    }
-    op = tok;
-    advance();
+    } else {
+      char *op = getOpCopy();
+      advance();
 
-    pAst tmp1;
-    if (!(tmp1 = Exp())) {
-      error();
-      return NULL;
-    }
+      pAst tmp1;
+      if (!(tmp1 = Exp())) {
+        error();
+        return NULL;
+      }
 
-    if (tok != Y_SEMICOLON) {
-      error();
-      return NULL;
+      if (tok != Y_SEMICOLON) {
+        error();
+        return NULL;
+      }
+      advance();
+      return BinaryNode(tmp0, tmp1, op);
     }
-    advance();
-    return BinaryNode(tmp0, tmp1, op);
   }
 
   pAst tmp2;
@@ -132,9 +140,9 @@ pAst Stmt() {
   // TODO debuging here
   pAst tmp3;
   if (!(tmp3 = Block())) {
-  fallBack(IN, scanTmp);
+    fallBack(IN, scanTmp);
   } else {
-  return tmp3;
+    return tmp3;
   }
 
   if (tok != Y_WHILE) {
@@ -258,13 +266,12 @@ pAst RelExp() {
   }
 
   long scanTmp = checkPoint();
-  enum yytokentype op;
   if (!(tok == Y_LESS || tok == Y_GREAT || tok == Y_LESSEQ ||
         tok == Y_GREATEQ)) {
     fallBack(IN, scanTmp);
     return tmp0;
   }
-  op = tok;
+  char *op = getOpCopy();
   advance();
 
   pAst tmp1;
@@ -284,12 +291,11 @@ pAst EqExp() {
   }
 
   long scanTmp = checkPoint();
-  enum yytokentype op;
   if (!(tok == Y_EQ || tok == Y_NOTEQ)) {
     fallBack(IN, scanTmp);
     return tmp0;
   }
-  op = tok;
+  char *op = getOpCopy();
   advance();
 
   pAst tmp1;
@@ -334,16 +340,15 @@ pAst LOrExp() {
   }
 
   long scanTmp = checkPoint();
-  enum yytokentype op;
   if (tok != Y_OR) {
     fallBack(IN, scanTmp);
     return tmp0;
   }
-  op = tok;
+  char *op = getOpCopy();
   advance();
 
   pAst tmp1;
-  if (!(tmp1 = LAndExp())) {
+  if (!(tmp1 = LOrExp())) {
     error();
     return NULL;
   }
@@ -403,8 +408,7 @@ pAst LVal() {
     error();
     return NULL;
   }
-  char *ID = malloc(sizeof(char) * strlen(yylval.id_name) + 1);
-  strcpy(ID, yylval.id_name);
+  char *ID = getIDCopy(yylval);
   advance();
 
   long scanTmp = checkPoint();
@@ -477,8 +481,7 @@ pAst UnaryExp() {
   if (!(tok == Y_ID)) {
     fallBack(IN, scanTmp);
   } else {
-    char *ID = malloc(sizeof(char) * strlen(yylval.id_name) + 1);
-    strcpy(ID, yylval.id_name);
+    char *ID = getIDCopy(yylval);
     advance();
     if (!(tok == Y_LPAR)) {
       fallBack(IN, scanTmp);
@@ -524,7 +527,7 @@ pAst UnaryExp() {
     error();
     return NULL;
   }
-  enum yytokentype op = tok;
+  char *op = getOpCopy();
   advance();
 
   pAst tmp2;
@@ -550,7 +553,7 @@ pAst MulExp() {
     fallBack(IN, scanTmp);
     return tmp0;
   }
-  enum yytokentype op = tok;
+  char *op = getOpCopy();
   advance();
 
   pAst tmp1;
@@ -574,7 +577,7 @@ pAst AddExp() {
     fallBack(IN, scanTmp);
     return tmp0;
   }
-  enum yytokentype op = tok;
+  char *op = getOpCopy();
   advance();
 
   pAst tmp1;
@@ -595,24 +598,24 @@ pAst ConstExp() {
   return tmp0;
 }
 
-/* int Type() { */
-/* if (tok == Y_INT) { */
-/* advance(); */
-/* return 0; */
-/* } */
-/* if (tok == Y_FLOAT) { */
-/* advance(); */
-/* return 0; */
-/* } */
-/* if (tok == Y_VOID) { */
-/* advance(); */
-/* return 0; */
-/* } */
-/*  */
-/* error(); */
-/* return 1; */
-/* } */
-/*  */
+enum yytokentype Type() {
+  if (tok == Y_INT) {
+    advance();
+    return tok;
+  }
+  if (tok == Y_FLOAT) {
+    advance();
+    return tok;
+  }
+  if (tok == Y_VOID) {
+    advance();
+    return tok;
+  }
+
+  error();
+  return 0;
+}
+
 int main() {
   IN = fopen("./dataIn.txt", "r");
   yyset_in(IN);
@@ -622,7 +625,6 @@ int main() {
   if (res) {
     printf("No ERROR\n");
     printf("stop at token: %s", yytext);
-    displayAst(res);
   } else {
     printf("ERROR");
     printf("stop at token: %s", yytext);

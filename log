@@ -1,0 +1,505 @@
+===============
+./ref/test_cases/61_sort_test7.sy:
+Ok
+stop at token: 
+stop at pos: 825
+===============
+./ref/test_cases/85_long_code.sy:
+Ok
+stop at token: 
+stop at pos: 5393
+===============
+./ref/test_cases/64_calculator.sy:
+Ok
+stop at token: 
+stop at pos: 4169
+===============
+./ref/test_cases/50_short_circuit.sy:
+Ok
+stop at token: 
+stop at pos: 401
+===============
+./ref/test_cases/48_assign_complex_expr.sy:
+Ok
+stop at token: 
+stop at pos: 357
+===============
+./ref/test_cases/56_sort_test2.sy:
+Ok
+stop at token: 
+stop at pos: 626
+===============
+./ref/test_cases/60_sort_test6.sy:
+Ok
+stop at token: 
+stop at pos: 957
+===============
+./ref/test_cases/07_const_var_defn3.sy:
+Ok
+stop at token: 
+stop at pos: 88
+===============
+./ref/test_cases/91_many_locals2.sy:
+Ok
+stop at token: 
+stop at pos: 1633
+===============
+./ref/test_cases/49_if_complex_expr.sy:
+Ok
+stop at token: 
+stop at pos: 402
+===============
+./ref/test_cases/80_chaos_token.sy:
+Ok
+stop at token: 
+stop at pos: 1421
+===============
+./ref/test_cases/68_brainfk.sy:
+Ok
+stop at token: 
+stop at pos: 1410
+===============
+./ref/test_cases/43_logi_assign.sy:
+Ok
+stop at token: 
+stop at pos: 127
+===============
+./ref/test_cases/31_while_if_test1.sy:
+Ok
+stop at token: 
+stop at pos: 282
+===============
+./ref/test_cases/13_sub2.sy:
+Ok
+stop at token: 
+stop at pos: 84
+===============
+./ref/test_cases/32_while_if_test2.sy:
+Ok
+stop at token: 
+stop at pos: 254
+===============
+./ref/test_cases/38_op_priority4.sy:
+Ok
+stop at token: 
+stop at pos: 202
+===============
+./ref/test_cases/34_arr_expr_len.sy:
+Ok
+stop at token: 
+stop at pos: 185
+===============
+./ref/test_cases/90_many_locals.sy:
+Ok
+stop at token: 
+stop at pos: 889
+===============
+./ref/test_cases/05_arr_defn4.sy:
+Ok
+stop at token: 
+stop at pos: 332
+===============
+./ref/test_cases/27_while_test2.sy:
+Ok
+stop at token: 
+stop at pos: 397
+===============
+./ref/test_cases/81_skip_spaces.sy:
+Ok
+stop at token: 
+stop at pos: 345
+===============
+./ref/test_cases/66_exgcd.sy:
+Ok
+stop at token: 
+stop at pos: 354
+===============
+./ref/test_cases/33_while_if_test3.sy:
+Ok
+stop at token: 
+stop at pos: 337
+===============
+./ref/test_cases/24_if_test5.sy:
+Ok
+stop at token: 
+stop at pos: 213
+===============
+./ref/test_cases/93_nested_calls.sy:
+Ok
+stop at token: 
+stop at pos: 1925
+===============
+./ref/test_cases/57_sort_test3.sy:
+Ok
+stop at token: 
+stop at pos: 1182
+===============
+./ref/test_cases/40_unary_op.sy:
+Ok
+stop at token: 
+stop at pos: 129
+===============
+./ref/test_cases/86_long_code2.sy:
+Ok
+stop at token: 
+stop at pos: 88474
+===============
+./ref/test_cases/12_addc.sy:
+Ok
+stop at token: 
+stop at pos: 63
+===============
+./ref/test_cases/41_unary_op2.sy:
+Ok
+stop at token: 
+stop at pos: 190
+===============
+./ref/test_cases/65_color.sy:
+Ok
+stop at token: 
+stop at pos: 1812
+===============
+./ref/test_cases/20_rem.sy:
+Ok
+stop at token: 
+stop at pos: 67
+===============
+./ref/test_cases/78_side_effect.sy:
+Ok
+stop at token: 
+stop at pos: 513
+===============
+./ref/test_cases/35_op_priority1.sy:
+Ok
+stop at token: 
+stop at pos: 142
+===============
+./ref/test_cases/29_break.sy:
+Ok
+stop at token: 
+stop at pos: 210
+===============
+./ref/test_cases/75_max_flow.sy:
+Ok
+stop at token: 
+stop at pos: 1636
+===============
+./ref/test_cases/37_op_priority3.sy:
+Ok
+stop at token: 
+stop at pos: 140
+===============
+./ref/test_cases/55_sort_test1.sy:
+Ok
+stop at token: 
+stop at pos: 779
+===============
+./ref/test_cases/28_while_test3.sy:
+Ok
+stop at token: 
+stop at pos: 842
+===============
+./ref/test_cases/01_var_defn2.sy:
+Ok
+stop at token: 
+stop at pos: 123
+===============
+./ref/test_cases/89_many_globals.sy:
+Ok
+stop at token: 
+stop at pos: 2434
+===============
+./ref/test_cases/14_subc.sy:
+Ok
+stop at token: 
+stop at pos: 68
+===============
+./ref/test_cases/18_divc.sy:
+Ok
+stop at token: 
+stop at pos: 63
+===============
+./ref/test_cases/00_main.sy:
+Ok
+stop at token: 
+stop at pos: 29
+===============
+./ref/test_cases/58_sort_test4.sy:
+Ok
+stop at token: 
+stop at pos: 791
+===============
+./ref/test_cases/45_comment1.sy:
+Ok
+stop at token: 
+stop at pos: 148
+===============
+./ref/test_cases/11_add2.sy:
+Ok
+stop at token: 
+stop at pos: 82
+===============
+./ref/test_cases/97_matrix_sub.sy:
+Ok
+stop at token: 
+stop at pos: 1011
+===============
+./ref/test_cases/73_int_io.sy:
+Ok
+stop at token: 
+stop at pos: 788
+===============
+./ref/test_cases/08_const_array_defn.sy:
+Ok
+stop at token: 
+stop at pos: 61
+===============
+./ref/test_cases/98_matrix_mul.sy:
+Ok
+stop at token: 
+stop at pos: 1304
+===============
+./ref/test_cases/99_matrix_tran.sy:
+Ok
+stop at token: 
+stop at pos: 1043
+===============
+./ref/test_cases/16_mulc.sy:
+Ok
+stop at token: 
+stop at pos: 62
+===============
+./ref/test_cases/53_scope2.sy:
+Ok
+stop at token: 
+stop at pos: 373
+===============
+./ref/test_cases/82_long_func.sy:
+Ok
+stop at token: 
+stop at pos: 37708
+===============
+./ref/test_cases/79_var_name.sy:
+Ok
+stop at token: 
+stop at pos: 39099
+===============
+./ref/test_cases/06_const_var_defn2.sy:
+Ok
+stop at token: 
+stop at pos: 85
+===============
+./ref/test_cases/72_hanoi.sy:
+Ok
+stop at token: 
+stop at pos: 455
+===============
+./ref/test_cases/39_op_priority5.sy:
+Ok
+stop at token: 
+stop at pos: 209
+===============
+./ref/test_cases/59_sort_test5.sy:
+Ok
+stop at token: 
+stop at pos: 1331
+===============
+./ref/test_cases/25_while_if.sy:
+Ok
+stop at token: 
+stop at pos: 403
+===============
+./ref/test_cases/04_arr_defn3.sy:
+Ok
+stop at token: 
+stop at pos: 310
+===============
+./ref/test_cases/42_empty_stmt.sy:
+Ok
+stop at token: 
+stop at pos: 55
+===============
+./ref/test_cases/94_nested_loops.sy:
+Ok
+stop at token: 
+stop at pos: 2479
+===============
+./ref/test_cases/69_expr_eval.sy:
+Ok
+stop at token: 
+stop at pos: 2646
+===============
+./ref/test_cases/03_arr_defn2.sy:
+Ok
+stop at token: 
+stop at pos: 44
+===============
+./ref/test_cases/70_dijkstra.sy:
+Ok
+stop at token: 
+stop at pos: 1452
+===============
+./ref/test_cases/26_while_test1.sy:
+Ok
+stop at token: 
+stop at pos: 214
+===============
+./ref/test_cases/10_var_defn_func.sy:
+Ok
+stop at token: 
+stop at pos: 76
+===============
+./ref/test_cases/63_big_int_mul.sy:
+Ok
+stop at token: 
+stop at pos: 981
+===============
+./ref/test_cases/47_hex_oct_add.sy:
+Ok
+stop at token: 
+stop at pos: 105
+===============
+./ref/test_cases/.gitkeep:
+ERROR
+stop at token: 
+stop at pos: 2
+===============
+./ref/test_cases/15_mul.sy:
+Ok
+stop at token: 
+stop at pos: 81
+===============
+./ref/test_cases/54_hidden_var.sy:
+Ok
+stop at token: 
+stop at pos: 868
+===============
+./ref/test_cases/87_many_params.sy:
+Ok
+stop at token: 
+stop at pos: 3856
+===============
+./ref/test_cases/22_if_test3.sy:
+Ok
+stop at token: 
+stop at pos: 207
+===============
+./ref/test_cases/02_var_defn3.sy:
+Ok
+stop at token: 
+stop at pos: 113
+===============
+./ref/test_cases/67_reverse_output.sy:
+Ok
+stop at token: 
+stop at pos: 200
+===============
+./ref/test_cases/71_full_conn.sy:
+Ok
+stop at token: 
+stop at pos: 5222
+===============
+./ref/test_cases/92_register_alloc.sy:
+Ok
+stop at token: 
+stop at pos: 2782
+===============
+./ref/test_cases/52_scope.sy:
+Ok
+stop at token: 
+stop at pos: 299
+===============
+./ref/test_cases/51_short_circuit3.sy:
+Ok
+stop at token: 
+stop at pos: 1095
+===============
+./ref/test_cases/96_matrix_add.sy:
+Ok
+stop at token: 
+stop at pos: 989
+===============
+./ref/test_cases/23_if_test4.sy:
+Ok
+stop at token: 
+stop at pos: 213
+===============
+./ref/test_cases/95_float.sy:
+Ok
+stop at token: 
+stop at pos: 2051
+===============
+./ref/test_cases/09_func_defn.sy:
+Ok
+stop at token: 
+stop at pos: 107
+===============
+./ref/test_cases/77_substr.sy:
+Ok
+stop at token: 
+stop at pos: 1170
+===============
+./ref/test_cases/88_many_params2.sy:
+Ok
+stop at token: 
+stop at pos: 818
+===============
+./ref/test_cases/84_long_array2.sy:
+Ok
+stop at token: 
+stop at pos: 299
+===============
+./ref/test_cases/83_long_array.sy:
+Ok
+stop at token: 
+stop at pos: 1019
+===============
+./ref/test_cases/44_stmt_expr.sy:
+Ok
+stop at token: 
+stop at pos: 146
+===============
+./ref/test_cases/46_hex_defn.sy:
+Ok
+stop at token: 
+stop at pos: 80
+===============
+./ref/test_cases/74_kmp.sy:
+Ok
+stop at token: 
+stop at pos: 1036
+===============
+./ref/test_cases/36_op_priority2.sy:
+Ok
+stop at token: 
+stop at pos: 146
+===============
+./ref/test_cases/17_div.sy:
+Ok
+stop at token: 
+stop at pos: 81
+===============
+./ref/test_cases/62_percolation.sy:
+Ok
+stop at token: 
+stop at pos: 1455
+===============
+./ref/test_cases/76_n_queens.sy:
+Ok
+stop at token: 
+stop at pos: 890
+===============
+./ref/test_cases/21_if_test2.sy:
+Ok
+stop at token: 
+stop at pos: 312
+===============
+./ref/test_cases/30_continue.sy:
+Ok
+stop at token: 
+stop at pos: 239
+===============
+./ref/test_cases/19_mod.sy:
+Ok
+stop at token: 
+stop at pos: 67

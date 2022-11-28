@@ -21,11 +21,15 @@ typedef struct _ast* pAst;
 
 // think up a suitable ast structure
 struct _ast {
-  node_type nType;
-  _YYLVAL val;
+  int ivalue;
+  float fvalue;
+  char* svalue;
 
-  pAst lnode;
-  pAst rnode;
+  node_type nodeType;
+
+  pAst left;
+  pAst right;
+  pAst if_cond;
   pAst next;
 };
 
@@ -36,7 +40,7 @@ pAst ArraySubscriptsNode(pAst exp, pAst Array);
 pAst FloatNode(float val);
 pAst IntNode(int val);
 pAst ParamNode(pAst exp, pAst param);
-pAst BinaryNode(pAst l, pAst r, enum yytokentype op);
+pAst BinaryNode(pAst l, pAst r, char* op);
 pAst WhileNode(pAst cond, pAst stmt);
 pAst IfNode(pAst cond, pAst stmt, pAst ElseStmt);
 pAst RetNode(pAst stmt);
@@ -44,7 +48,7 @@ pAst BrkNode();
 pAst CountinueNode();
 pAst BlockNode(pAst exps);
 
-void displayAst(pAst now);
+// void displayAst(pAst now);
 void clean(pAst now);
 bool IDNode(pAst now);
 

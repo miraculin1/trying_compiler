@@ -1,6 +1,22 @@
 #ifndef __RDPARSER_H
 #define __RDPARSER_H
 
+int FuncParam();
+int FuncParams();
+int FuncDef();
+int InitVals();
+int InitVal();
+int VarDef();
+int CompUnit();
+int VarDecl();
+int VarDecls();
+int ConstInitvals();
+int ConstInitval();
+int ConstExps();
+int ConstDef();
+int ConstDefs();
+int ConstDecl();
+int Decl();
 int BlockItems();
 int Block();
 int Stmt();
